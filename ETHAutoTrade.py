@@ -4,7 +4,7 @@ import datetime
 
 access = ""
 secret = ""
-k = 0.1
+k = 0.3
 def get_target_price(ticker, k):
     """변동성 돌파 전략으로 매수 목표가 조회"""
     df = pyupbit.get_ohlcv(ticker, interval="day", count=2)
@@ -39,20 +39,20 @@ print("autotrade start")
 while True:
     try:
         now = datetime.datetime.now()
-        start_time = get_start_time("KRW-ETH")
+        start_time = get_start_time("KRW-DOGE")
         end_time = start_time + datetime.timedelta(days=1)
 
         if start_time < now < end_time - datetime.timedelta(seconds=10):
-            target_price = get_target_price("KRW-ETH", k)
-            current_price = get_current_price("KRW-ETH")
+            target_price = get_target_price("KRW-DOGE", k)
+            current_price = get_current_price("KRW-DOGE")
             if target_price < current_price:
                 krw = get_balance("KRW")
                 if krw > 5000:
-                    upbit.buy_market_order("KRW-ETH", krw*0.9995)
+                    upbit.buy_market_order("KRW-DOGE", krw*0.9995)
         else:
-            eth = get_balance("ETH")
-            if eth > 0.001:
-                upbit.sell_market_order("KRW-ETH", eth*0.9995)
+            doge = get_balance("DOGE")
+            if doge > 0.001:
+                upbit.sell_market_order("KRW-DOGE", doge*0.9995)
         time.sleep(1)
     except Exception as e:
         print(e)

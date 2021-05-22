@@ -4,7 +4,7 @@ import datetime
 
 access = ""
 secret = ""
-k = 0.3
+
 def get_target_price(ticker, k):
     """변동성 돌파 전략으로 매수 목표가 조회"""
     df = pyupbit.get_ohlcv(ticker, interval="day", count=2)
@@ -43,7 +43,7 @@ while True:
         end_time = start_time + datetime.timedelta(days=1)
 
         if start_time < now < end_time - datetime.timedelta(seconds=10):
-            target_price = get_target_price("KRW-DOGE", k)
+            target_price = get_target_price("KRW-DOGE", 0.1)
             current_price = get_current_price("KRW-DOGE")
             if target_price < current_price:
                 krw = get_balance("KRW")
